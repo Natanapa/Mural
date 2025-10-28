@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Slides Mural</title>
+  <link rel="stylesheet" href="Assets/styles/style.css">
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: "Roboto", sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+    .mural {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    img {
+      max-width: 90%;
+      max-height: 70vh;
+      object-fit: contain;
+      margin-bottom: 1em;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0.5em 0;
+    }
+    p {
+      font-size: 1.2rem;
+      max-width: 80%;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="mural">
+    <img id="slide-img" src="" alt="Slide">
+    <h1 id="slide-title"></h1>
+    <p id="slide-text"></p>
+  </div>
+
+  <script>
+    const imgEl = document.getElementById("slide-img");
+    const titleEl = document.getElementById("slide-title");
+    const textEl = document.getElementById("slide-text");
+
+    async function carregarSlide() {
+      try {
+        const resp = await fetch("api.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ acao: "atualizar" }) });
+        const data = await resp.json();
+
+        // Atualiza os elementos
+        imgEl.src = data.imgurl || "";
+        titleEl.textContent = data.title || "";
+        textEl.textContent = data.text || "";
+
+        // Recarrega após o tempo definido
+        setTimeout(carregarSlide, (data.tempo || 5) * 1000);
+      } catch (e) {
+        console.error("Erro ao atualizar mural:", e);
+        setTimeout(carregarSlide, 5000); // tenta de novo após 5s se der erro
+      }
+    }
+
+    carregarSlide();
+  </script>
+</body>
+</html>

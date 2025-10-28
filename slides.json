@@ -1,0 +1,76 @@
+{
+    "slides": [
+        {
+            "url": "http:\/\/192.168.3.16\/mural\/muralvaga\/index.php",
+            "title": null,
+            "text": null,
+            "urlimg": null,
+            "vaga": "Auxiliar de Vagas!",
+            "requisitos": [
+                "Morar em Aparecida de Goiânia",
+                "Ter formação em Eletrotécnica"
+            ],
+            "salario": "2000",
+            "beneficios": [
+                "Vale Transporte",
+                "Alimentação na empresa."
+            ]
+        },
+        {
+            "url": "http:\/\/192.168.3.16\/mural\/muralvaga\/index.php",
+            "title": null,
+            "text": null,
+            "urlimg": null,
+            "vaga": "Auxiliar de Produção",
+            "requisitos": [
+                "Ensino médio completo",
+                "Morar em Aparecida de Goiânia"
+            ],
+            "salario": "2119",
+            "beneficios": [
+                "Vale Trasnporte",
+                "Vale Alimentação"
+            ]
+        },
+        {
+            "url": "http:\/\/192.168.3.16\/mural\/poluicao\/index.php",
+            "title": "Política Integrada",
+            "text": "Atuar na proteção do meio ambiente, incluindo a prevenção da poluição, redução ou eliminação de impactos ambientais e uso sustentável de recursos naturais.",
+            "urlimg": "http:\/\/192.168.3.16\/mural\/poluicao\/images\/Plano de Fundo6.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "JPG",
+            "title": "Imagem JPG",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "\/mural\/Assets\/imgs\/16.SVG",
+            "vaga": "",
+            "requisitos": [],
+            "salario": "",
+            "beneficios": []
+        },
+        {
+            "url": "JPG",
+            "title": "Teste de Imagem JPG",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "\/mural\/Assets\/imgs\/21.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "JPG",
+            "title": "Teste de Imagem JPG",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "\/mural\/Assets\/imgs\/18.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        }
+    ]
+}
