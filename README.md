@@ -1,5 +1,7 @@
 HTML Slider / Mural de Slides Dinâmico
 
+Por enquanto incompleto.
+
 Um sistema de mural de slides interativo desenvolvido com PHP e JavaScript/AJAX, capaz de alternar automaticamente entre páginas HTML, imagens e outros conteúdos, com suporte a diferentes modelos de dados e interface de controle.
 
 Funcionalidades:
