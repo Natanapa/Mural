@@ -1,7 +1,7 @@
 {
     "slides": [
         {
-            "url": "http:\/\/192.168.3.16\/mural\/muralvaga\/index.php",
+            "url": "muralvaga\/index.php",
             "title": null,
             "text": null,
             "urlimg": null,
@@ -17,7 +17,7 @@
             ]
         },
         {
-            "url": "http:\/\/192.168.3.16\/mural\/muralvaga\/index.php",
+            "url": "muralvaga\/index.php",
             "title": null,
             "text": null,
             "urlimg": null,
@@ -33,20 +33,10 @@
             ]
         },
         {
-            "url": "http:\/\/192.168.3.16\/mural\/poluicao\/index.php",
-            "title": "Política Integrada",
-            "text": "Atuar na proteção do meio ambiente, incluindo a prevenção da poluição, redução ou eliminação de impactos ambientais e uso sustentável de recursos naturais.",
-            "urlimg": "http:\/\/192.168.3.16\/mural\/poluicao\/images\/Plano de Fundo6.jpg",
-            "vaga": null,
-            "requisitos": null,
-            "salario": null,
-            "beneficios": null
-        },
-        {
             "url": "JPG",
             "title": "Imagem JPG",
             "text": "Imagem JPG, SVG, PNG.",
-            "urlimg": "\/mural\/Assets\/imgs\/16.SVG",
+            "urlimg": "Assets\/imgs\/16.SVG",
             "vaga": "",
             "requisitos": [],
             "salario": "",
@@ -56,7 +46,7 @@
             "url": "JPG",
             "title": "Teste de Imagem JPG",
             "text": "Imagem JPG, SVG, PNG.",
-            "urlimg": "\/mural\/Assets\/imgs\/21.jpg",
+            "urlimg": "Assets\/imgs\/21.jpg",
             "vaga": null,
             "requisitos": null,
             "salario": null,
@@ -66,7 +56,73 @@
             "url": "JPG",
             "title": "Teste de Imagem JPG",
             "text": "Imagem JPG, SVG, PNG.",
-            "urlimg": "\/mural\/Assets\/imgs\/18.jpg",
+            "urlimg": "Assets\/imgs\/18.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "muralvaga\/index.php",
+            "title": null,
+            "text": null,
+            "urlimg": null,
+            "vaga": "teste",
+            "requisitos": [
+                "teste",
+                "teste2"
+            ],
+            "salario": "teste",
+            "beneficios": [
+                "testes",
+                "teste2"
+            ]
+        },
+        {
+            "url": "poluicao\/index.php",
+            "title": "Teste1",
+            "text": "Sem Imagem",
+            "urlimg": "",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "poluicao\/index.php",
+            "title": "Teste",
+            "text": "Com imagens",
+            "urlimg": "\/poluicao\/images\/Plano de Fundo1.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "\/poluicao\/index.php",
+            "title": "teste",
+            "text": "testes com imagens 2",
+            "urlimg": "poluicao\/images\/Plano de Fundo.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "poluicao\/index.php",
+            "title": "Teste",
+            "text": "Tste com imagem 3",
+            "urlimg": "\/poluicao\/images\/Plano de Fundo5.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "poluicao\/index.php",
+            "title": "Teste",
+            "text": "Teste sem imagem 2",
+            "urlimg": "\/poluicao\/images\/Plano de Fundo5.jpg",
             "vaga": null,
             "requisitos": null,
             "salario": null,

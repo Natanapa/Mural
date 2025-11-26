@@ -3,6 +3,12 @@ if (session_status() === PHP_SESSION_NONE) {
     // Nenhuma sessão ativa, então criamos
     session_start();
 };
+// Carrega configuração disponível:
+$config = require __DIR__ . '/config.php';
+
+
+$site_url = $config['site_url'];
+
 // ===============================
 // BLOCO PHP — endpoint JSON
 // ===============================
@@ -152,9 +158,157 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
       display: flex;
       flex-direction: row;
     }
+        
+    /* Animação suave */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ======= TÍTULO ======= */
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #ffffffff;
+        letter-spacing: 0.5px;
+    }
+
+    /* ======= ESTILO DO INPUT HIDDEN ======= */
+    input[type="file"] {
+        display: none;
+    }
+
+    /* ======= CAIXA DE UPLOAD ======= */
+    .upload-area {
+        border: 2px dashed #bfc4d1;
+        border-radius: 14px;
+        padding: 40px 20px;
+        text-align: center;
+        background: #ffffffc9;
+        transition: 0.25s ease;
+    }
+
+    .upload-area:hover {
+        border-color: #6c8cff;
+        background: #eef2ff;
+        transform: scale(1.01);
+    }
+
+    /* Texto da caixa */
+    .upload-area p {
+        color: #5a5a5a;
+        font-size: 14px;
+    }
+
+    /* Botão dentro da caixa */
+    label.select-btn {
+        margin-top: 10px;
+        background: #6c8cff;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 8px;
+        display: inline-block;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 15px;
+    }
+
+    label.select-btn:hover {
+        background: #5979e6;
+    }
+
+    /* ======= BOTÃO DE ENVIAR ======= */
+    button#sendBtn {
+        width: 100%;
+        margin-top: 18px;
+        padding: 14px;
+        background: #2DD4BF;
+        color: #fff;
+        font-size: 17px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    button#sendBtn:hover {
+        background: #2DD4BF;
+        transform: scale(1.02);
+    }
+
+    /* ======= MENSAGEM ======= */
+    #msg {
+        margin-top: 20px;
+        padding: 12px;
+        font-size: 15px;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .success {
+        background: #d0f5da;
+        color: #1e6d35;
+    }
+
+    .error {
+        background: #f7d4d4;
+        color: #8b1b1b;
+    }
+    .player .filho{
+        right: 100%;
+        left:100%;
+    }
 </style>
 </head>
 <body>
+  <div id="upload" class="filho">
+    <div class="container">
+
+        <h2>Enviar Arquivos</h2>
+
+        <div class="upload-area">
+            <p>Selecione fotos, GIFs ou SVGs</p>
+            <label for="file" class="select-btn">Selecionar arquivos</label>
+            <input type="file" id="file" multiple>
+        </div>
+
+        <button id="sendBtn" onclick="upload()">Enviar</button>
+
+        <div id="msg"></div>
+
+    </div>
+
+    <script>
+    function upload() {
+        let files = document.getElementById('file').files;
+
+        if (!files.length) {
+            alert('Selecione os arquivos primeiro.');
+            return;
+        }
+
+        let form = new FormData();
+        for (let f of files) {
+            form.append('files[]', f);
+        }
+
+        fetch('upload.php', {
+            method: 'POST',
+            body: form
+        })
+        .then(r => r.text())
+        .then(t => {
+            let msg = document.getElementById('msg');
+            msg.style.display = "block";
+            msg.className = t.includes("sucesso") ? "success" : "error";
+            msg.innerHTML = t;
+        })
+        .catch(e => alert("Erro: " + e));
+    }
+  </script>
+</div>
   <div class="wrap">
     <h2 style="margin:0 0 8px 0; color:var(--accent)">HTML Slider — troca a cada 5s</h2>
     <div class="player" role="application" aria-label="HTML Slider">
@@ -167,6 +321,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
             <button class="btn primary" id="playPauseBtn">Pause</button>
             <button class="btn" id="nextBtn">▶</button>
             <button class="btn" id="fsBtn">⛶</button>
+            <button class="btn" id="upbtn">⭱</button>
+            
           </div>
           <div class="small" style="margin-top:8px;">Intervalo (segundos)</div>
           <div class="rangeRow">
@@ -184,8 +340,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
 
           <div id="galeria">
             <div class="grid">
-              <img atr="model1" class="img-item" src="Assets/imgs/13.jpg" data-url="http://192.168.3.16/mural/poluicao/index.php" alt="Imagem 1">
-              <img atr="model2" class="img-item" src="Assets/imgs/21.jpg" data-url="http://192.168.3.16/mural/muralvaga/index.php" alt="Imagem 2">
+              <img atr="model1" class="img-item" src="Assets/imgs/13.jpg" data-url="poluicao/index.php" alt="Imagem 1">
+              <img atr="model2" class="img-item" src="Assets/imgs/21.jpg" data-url=<?php echo $site_url."/muralvaga/index.php"?> alt="Imagem 2">
               <img atr="model3" class="img-item" src="Assets/imgs/jpg.jpg" data-url="JPG" alt="Imagem 2">
             </div>
           </div>
@@ -193,14 +349,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
           <button class="btn" id="btnToggle-2">Mostrar Modelos</button>
           <div id="galeria-2">
             <div class="grid">
-              <img class="img-item-2" src="poluicao/images/Plano de Fundo.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de Fundo.jpg" alt="Imagem 1">
-              <img class="img-item-2" src="poluicao/images/Plano de Fundo1.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de Fundo1.jpg" alt="Imagem 2">
-              <img class="img-item-2" src="poluicao/images/plano de fundo 2.jpg" data-url="http://192.168.3.16/mural/poluicao/images/plano de fundo 2.jpg" alt="Imagem 3">
-              <img class="img-item-2" src="poluicao/images/Plano de Fundo3.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de Fundo3.jpg" alt="Imagem 4">
-              <img class="img-item-2" src="poluicao/images/Plano de fundo4.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de fundo4.jpg" alt="Imagem 5">
-              <img class="img-item-2" src="poluicao/images/Plano de Fundo5.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de Fundo5.jpg" alt="Imagem 6">
-              <img class="img-item-2" src="poluicao/images/Plano de Fundo6.jpg" data-url="http://192.168.3.16/mural/poluicao/images/Plano de Fundo6.jpg" alt="Imagem 7">
-              <img class="img-item-2" src="poluicao/images/img_6030.png" data-url="http://192.168.3.16/mural/poluicao/images/img_6030.png" alt="Imagem 8">
+              <img class="img-item-2" src="poluicao/images/Plano de Fundo.jpg" data-url= "/poluicao/images/Plano de Fundo.jpg" alt="Imagem 1">
+              <img class="img-item-2" src="poluicao/images/Plano de Fundo1.jpg" data-url= "/poluicao/images/Plano de Fundo1.jpg" alt="Imagem 2">
+              <img class="img-item-2" src="poluicao/images/plano de fundo 2.jpg" data-url="/poluicao/images/plano de fundo 2.jpg" alt="Imagem 3">
+              <img class="img-item-2" src="poluicao/images/Plano de Fundo3.jpg" data-url="/poluicao/images/Plano de Fundo3.jpg" alt="Imagem 4">
+              <img class="img-item-2" src="poluicao/images/Plano de fundo4.jpg" data-url="/poluicao/images/Plano de fundo4.jpg" alt="Imagem 5">
+              <img class="img-item-2" src="poluicao/images/Plano de Fundo5.jpg" data-url="/poluicao/images/Plano de Fundo5.jpg" alt="Imagem 6">
+              <img class="img-item-2" src="poluicao/images/Plano de Fundo6.jpg" data-url="/poluicao/images/Plano de Fundo6.jpg" alt="Imagem 7">
+              <img class="img-item-2" src="poluicao/images/img_6030.png" data-url="/poluicao/images/img_6030.png" alt="Imagem 8">
             </div>
           </div>
           <!--<input id="svgUrl" type="text" placeholder="https://site/exemplo.svg" />-->
@@ -240,6 +396,8 @@ const stage = document.getElementById('stage');
 const listEl = document.getElementById('list');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const upbtn = document.getElementById('upbtn')
+const uploadimg = document.getElementById('upload')
 const playPauseBtn = document.getElementById('playPauseBtn');
 const intervalRange = document.getElementById('interval');
 const intervalLabel = document.getElementById('intervalLabel');
@@ -263,6 +421,7 @@ const reqcontainer = document.getElementById('requisitos-container');
 const benefcontainer = document.getElementById('beneficios-container');
 const jpgconst = document.getElementById('jpg');
 const jpgdiv = document.getElementById('jpgdiv');
+const site_url = "<?php echo $site_url; ?>";
 //const Titulojpg  = document.getElementById('Titulojpg');
     let imagemSelecionada = null; // variável global pra guardar a URL
     let svgUrlInput = ""
@@ -279,10 +438,13 @@ const jpgdiv = document.getElementById('jpgdiv');
     jpgconst.style.display = 'none';
     jpgdiv.style.display = 'none';
     //Titulojpg.style.display = 'none';
+    uploadimg.style.display ='none'
 
 
     
-
+    upbtn.addEventListener('click', () => {
+      uploadimg.style.display = 'block'
+    })
     // Mostra/esconde a galeria
     btnToggle.addEventListener('click', () => {
       const visivel = galeria.style.display === 'flex';
@@ -431,19 +593,19 @@ function renderList(){
 }
 
 function buildStage(){
-  
+    
     stage.innerHTML = '';
     slides.forEach((slide, indx) => {
       if(slide.url !== "JPG"){
         const wrap = document.createElement('div');
         wrap.className = 'slide-item' + (indx===index ? ' visible' : '');
-        wrap.innerHTML = `<iframe id="frame" src="${slide.url}" title="${slide.title}" ></iframe>`;
+        wrap.innerHTML = `<iframe id="frame" src="${site_url}/${slide.url}" title="${slide.title}" ></iframe>`;
         stage.appendChild(wrap);
         
       }else{
         const wrap = document.createElement('div');
         wrap.className = 'slide-item' + (indx===index ? ' visible' : '');
-        wrap.innerHTML = `<img id="frame" width='1080px' height='1920px' src="${slide.urlimg}" title="${slide.title}" ></img>`;
+        wrap.innerHTML = `<img id="frame" width='1080px' height='1920px' src="${site_url}/${slide.urlimg}" title="${slide.title}" ></img>`;
         stage.appendChild(wrap);
         
       };
@@ -459,11 +621,11 @@ function show(i){
     n.classList.toggle('visible', idx === index);
     // Monta os dados do slide atual
     
-    let  urlshow = slides[i].url;
+    let  urlshow = site_url+"/"+slides[i].url;
     let  titleshow = slides[i].title;
     let  textshow = slides[i].text;
     let tempo = document.getElementById("interval").value;
-    let urlimgshow = slides[i].urlimg;
+    let urlimgshow = site_url+"/"+slides[i].urlimg;
     let vagashow = slides[i].vaga;
     let requisitosshow = slides[i].requisitos;
     let salarioshow = slides[i].salario;

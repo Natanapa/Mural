@@ -156,8 +156,10 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
         .then(response => response.json()) // converte o retorno PHP em JSON
         .then(data =>{
           atualizarSlide(data.title, data.text);
-          if(data.imgurl){
+          if(data.imgurl !== "http://192.168.3.16/mural-main/"){
             imgEl.src = data.imgurl
+          }else{
+            imgEl.src = "images/IMG_6030.svg"
           };
         })
       }
@@ -171,9 +173,11 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
       .then(data =>{
         atualizarSlide(data.title, data.text);
         const intervaloMs = data.tempo * 1000; // converte pra milissegundos
-        if(data.imgurl){
-          imgEl.src = data.imgurl
-        };
+        if(data.imgurl !== "http://192.168.3.16/mural-main/"){
+            imgEl.src = data.imgurl
+          }else{
+            imgEl.src = "images/IMG_6030.svg"
+          };
         // exemplo: controlar a troca de slides
         setInterval(() => {
           feat();
