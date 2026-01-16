@@ -218,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
       })
       .then(response => response.json()) // converte o retorno PHP em JSON
       .then(data =>{
+        console.log(data.requisitos);
         atualizarSlide(data.vaga, data.requisitos, data.salario, data.beneficios );
         // exemplo: controlar a troca de slides
         setInterval(() => {

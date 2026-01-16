@@ -26,6 +26,41 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
     }
     exit;
 }
+define('IMG_BASE_PATH', 'assets/imgs/');
+define('IMAGEM_SELECIONADA', ''); // ainda não será usada
+
+function listarArquivos($dir)
+{
+    $result = [];
+    $files = scandir($dir);
+
+    foreach ($files as $file) {
+        if ($file == '.' || $file == '..') continue;
+
+        $fullPath = $dir . '/' . $file;
+
+        if (is_dir($fullPath)) {
+            $result[] = [
+                'type' => 'dir',
+                'name' => $file,
+                'path' => $fullPath
+            ];
+        } else {
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'])) {
+                $result[] = [
+                    'type' => 'img',
+                    'name' => $file,
+                    'path' => $fullPath
+                ];
+            }
+        }
+    }
+
+    return $result;
+}
+
+$arquivos = listarArquivos(__DIR__ . '/' . IMG_BASE_PATH);
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -33,6 +68,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>HTML Slider — com título e parágrafo</title>
+<link rel="stylesheet" href="assets/styles/style.css">
 <style>
   :root{
     --bg:#071022;
@@ -261,6 +297,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
         left:100%;
     }
 </style>
+
 </head>
 <body>
   <div id="upload" class="filho">
@@ -341,7 +378,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
           <div id="galeria">
             <div class="grid">
               <img atr="model1" class="img-item" src="Assets/imgs/13.jpg" data-url="poluicao/index.php" alt="Imagem 1">
-              <img atr="model2" class="img-item" src="Assets/imgs/21.jpg" data-url=<?php echo $site_url."/muralvaga/index.php"?> alt="Imagem 2">
+              <img atr="model2" class="img-item" src="Assets/imgs/21.jpg" data-url="muralvaga/index.php" alt="Imagem 2">
               <img atr="model3" class="img-item" src="Assets/imgs/jpg.jpg" data-url="JPG" alt="Imagem 2">
             </div>
           </div>
@@ -360,7 +397,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
             </div>
           </div>
           <!--<input id="svgUrl" type="text" placeholder="https://site/exemplo.svg" />-->
-          <div>  
+          <div>
+            <button class ="btn primary" id="btnAbrir">Selecionar imagem</button> 
             <input id="svgTitulo" type="text" placeholder="Título" />
             <input id="svgparagrafo" type="text" placeholder="Parágrafo" />
             <input id="vaga" type="text" placeholder="Vaga" />
@@ -377,6 +415,30 @@ if (isset($_GET['action']) && $_GET['action'] === 'get') {
               </div>
               <button id="btnbeneficios" class="btn"  title="btnbeneficios">✚</button>
             </div>
+            
+            <!-- MODAL -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span id="fechar">&times;</span>
+                    <h2>Arquivos disponíveis</h2>
+
+                    <div class="grid">
+                        <?php foreach ($arquivos as $item): ?>
+                            <?php if ($item['type'] === 'dir'): ?>
+                                <div class="folder">
+                                    📁 <?= htmlspecialchars($item['name']) ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="image-box" data-path="<?= IMG_BASE_PATH . basename($item['path']) ?>">
+                                    <img src="<?= IMG_BASE_PATH . basename($item['path']) ?>" alt="">
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+
+            <script src="assets/scripts/script.js"></script>
             <!--<input id="Titulojpg" type="text" placeholder="Titulo"/>-->
             <input id="jpg" type="text" placeholder="Url da Imagem"/>
             <div id="jpgdiv" class="small">Você pode usar caminhos locais (ex: <code>svgs/meu.svg</code>) se hospedar junto ao HTML.</div>
@@ -416,11 +478,13 @@ const galeria = document.getElementById('galeria');
 const galeria2 = document.getElementById('galeria-2');
 const btnreq = document.getElementById('btnrequisitos');
 const btnbenef = document.getElementById('btnbeneficios');
+const btnAbrir = document.getElementById('btnAbrir');
 const reqdiv = document.getElementById('reqdiv');
 const reqcontainer = document.getElementById('requisitos-container');
 const benefcontainer = document.getElementById('beneficios-container');
 const jpgconst = document.getElementById('jpg');
 const jpgdiv = document.getElementById('jpgdiv');
+
 const site_url = "<?php echo $site_url; ?>";
 //const Titulojpg  = document.getElementById('Titulojpg');
     let imagemSelecionada = null; // variável global pra guardar a URL
@@ -439,11 +503,13 @@ const site_url = "<?php echo $site_url; ?>";
     jpgdiv.style.display = 'none';
     //Titulojpg.style.display = 'none';
     uploadimg.style.display ='none'
+    btnAbrir.style.display = 'none'
 
 
     
     upbtn.addEventListener('click', () => {
-      uploadimg.style.display = 'block'
+      const visivel = uploadimg.style.display = 'block';
+      uploadimg.style.display = visivel ? 'none' : 'block';
     })
     // Mostra/esconde a galeria
     btnToggle.addEventListener('click', () => {
@@ -463,9 +529,11 @@ const site_url = "<?php echo $site_url; ?>";
     // Quando clicar em uma imagem
     document.querySelectorAll('.img-item').forEach(img => {
       img.addEventListener('click', () => {
+        let test = galeria.style.display === 'flex';
         imagemSelecionada = img.getAttribute('data-url');
         modelselecionado = img.getAttribute('atr');
-        modelinput = modelselecionado
+        modelinput = modelselecionado;
+        btnToggle.textContent = test ? 'Mostrar Modelos' : 'Ocultar Modelos';
 
         
 
@@ -515,6 +583,9 @@ const site_url = "<?php echo $site_url; ?>";
           
           jpgconst.style.display = 'flex';
           jpgdiv.style.display = 'flex';
+
+          btnAbrir.style.display = 'flex';
+          
           //Titulojpg.style.display = 'flex';
         };
 
@@ -605,7 +676,7 @@ function buildStage(){
       }else{
         const wrap = document.createElement('div');
         wrap.className = 'slide-item' + (indx===index ? ' visible' : '');
-        wrap.innerHTML = `<img id="frame" width='1080px' height='1920px' src="${site_url}/${slide.urlimg}" title="${slide.title}" ></img>`;
+        wrap.innerHTML = `<img id="frame"  src="${site_url}/${slide.urlimg}" title="${slide.title}" ></img>`;
         stage.appendChild(wrap);
         
       };
@@ -633,6 +704,7 @@ function show(i){
     
     if (modelinput === "model1") {
       bodyData = { url: urlshow, title: titleshow, text: textshow, urlimg: urlimgshow, vaga: vagashow, requisitos: requisitosshow, salario: salarioshow, beneficios: beneficiosshow };
+      coso
     } else {
       
       bodyData = { url: urlshow, title: titleshow, text: textshow, urlimg: urlimgshow, vaga: vagashow, requisitos: requisitosshow, salario: salarioshow, beneficios: beneficiosshow };

@@ -24,5 +24,73 @@ textarea{ min-height:90px; resize:vertical; }
 .editorarea{min-height:90px; resize:vertical; background:none;background-color: transparent;}
 .small{ font-size:12px; color:var(--muted); }
 .top-actions{ margin-bottom:10px; display:flex; gap:8px; }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 40px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #2d89ef;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background: rgba(255,255,255,0.06);;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+#fechar {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.image-box {
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.image-box img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.image-box:hover {
+    border-color: #2d89ef;
+}
+
+.folder {
+    background: #eee;
+    padding: 30px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
 @media (max-width:900px){ .container{ flex-direction:column; } .left{ width:100%; } .slide{ width:95%; height:60%; }
 }
