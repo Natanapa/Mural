@@ -80,9 +80,9 @@ $arquivos = listarArquivos(__DIR__ . '/' . IMG_BASE_PATH);
   .wrap{ max-width:1100px; margin:28px auto; padding:18px; }
   .player{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); border-radius:12px; padding:18px; box-shadow:0 8px 30px rgba(2,6,23,0.6); display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:start; }
   .stage{ background:rgba(255,255,255,0.02); border-radius:10px; height:520px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
-  .slide-item{ position:absolute; inset:0; display:flex; flex-direction:column; opacity:0; transform:scale(.98); transition:opacity .6s ease, transform .6s ease; }
-  .slide-item.visible{ opacity:1; transform:scale(1); z-index:2; }
-  iframe{ flex:1; border:none; width:100%; height:100%; border-radius:8px; background:white; }
+  .slide-item{ position:absolute; inset:0; display:flex;  opacity:0; transform:scale(.98); transition:opacity .6s ease, transform .6s ease; justify-content: center; align-items: center;}
+  .slide-item.visible{ opacity:1; z-index:2; }
+  iframe{ flex:1; border:none; max-width: 705px; height:1253px; border-radius:8px; background:white;}
   .caption{ padding:10px; background:rgba(0,0,0,0.4); }
   .caption h3{ margin:0; color:var(--accent); }
   .caption p{ margin:4px 0 0; color:#e6eef6; font-size:14px; }
@@ -96,9 +96,17 @@ $arquivos = listarArquivos(__DIR__ . '/' . IMG_BASE_PATH);
   .list .item.active{ background:rgba(45,212,191,0.06); }
   input[type="text"]{ width:100%; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; margin: 5px; padding: 5px; }
   footer{ margin-top:14px; text-align:center; color:var(--muted); font-size:13px; }
-  @media (max-width:980px){
+  @media (max-width:1471px){
     .player{ grid-template-columns: 1fr; }
     .stage{ height:420px; }
+    .slide-item{ position:absolute; inset:0; display:flex;  opacity:0; transform:scale(.98); transition:opacity .6s ease, transform .6s ease; justify-content: center; align-items: center;}
+    .slide-item.visible{ opacity:1; transform:scale(1); z-index:2; }
+    iframe{ flex:1; border:none; max-width:707px; height:1450px; border-radius:8px; background:white;}
+    #frame{
+      width: 714px;
+      height: 1271px;
+    }
+    
   }
   #galeria {
       position: fixed;           /* Fica sobre tudo */
@@ -194,107 +202,21 @@ $arquivos = listarArquivos(__DIR__ . '/' . IMG_BASE_PATH);
       display: flex;
       flex-direction: row;
     }
-        
-    /* Animação suave */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+    .fullscreen-rotate {
+      transform: rotate(90deg);
+      transform-origin: center center;
+      width: 100vh !important;
+      height: 100vw !important;
+      object-fit: cover;
     }
-
-    /* ======= TÍTULO ======= */
-    h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        font-size: 26px;
-        font-weight: 600;
-        color: #ffffffff;
-        letter-spacing: 0.5px;
+    #frame{
+      justify-self: center;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-
-    /* ======= ESTILO DO INPUT HIDDEN ======= */
-    input[type="file"] {
-        display: none;
-    }
-
-    /* ======= CAIXA DE UPLOAD ======= */
-    .upload-area {
-        border: 2px dashed #bfc4d1;
-        border-radius: 14px;
-        padding: 40px 20px;
-        text-align: center;
-        background: #ffffffc9;
-        transition: 0.25s ease;
-    }
-
-    .upload-area:hover {
-        border-color: #6c8cff;
-        background: #eef2ff;
-        transform: scale(1.01);
-    }
-
-    /* Texto da caixa */
-    .upload-area p {
-        color: #5a5a5a;
-        font-size: 14px;
-    }
-
-    /* Botão dentro da caixa */
-    label.select-btn {
-        margin-top: 10px;
-        background: #6c8cff;
-        color: #fff;
-        padding: 10px 22px;
-        border-radius: 8px;
-        display: inline-block;
-        cursor: pointer;
-        transition: 0.2s;
-        font-size: 15px;
-    }
-
-    label.select-btn:hover {
-        background: #5979e6;
-    }
-
-    /* ======= BOTÃO DE ENVIAR ======= */
-    button#sendBtn {
-        width: 100%;
-        margin-top: 18px;
-        padding: 14px;
-        background: #2DD4BF;
-        color: #fff;
-        font-size: 17px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.25s ease;
-    }
-
-    button#sendBtn:hover {
-        background: #2DD4BF;
-        transform: scale(1.02);
-    }
-
-    /* ======= MENSAGEM ======= */
-    #msg {
-        margin-top: 20px;
-        padding: 12px;
-        font-size: 15px;
-        border-radius: 10px;
-        display: none;
-    }
-
-    .success {
-        background: #d0f5da;
-        color: #1e6d35;
-    }
-
-    .error {
-        background: #f7d4d4;
-        color: #8b1b1b;
-    }
-    .player .filho{
-        right: 100%;
-        left:100%;
+    #none{
+      display: none;
     }
 </style>
 
@@ -359,6 +281,7 @@ $arquivos = listarArquivos(__DIR__ . '/' . IMG_BASE_PATH);
             <button class="btn" id="nextBtn">▶</button>
             <button class="btn" id="fsBtn">⛶</button>
             <button class="btn" id="upbtn">⭱</button>
+            <button class="btn" id="crot" >▭↻</button>
             
           </div>
           <div class="small" style="margin-top:8px;">Intervalo (segundos)</div>
@@ -508,7 +431,8 @@ const site_url = "<?php echo $site_url; ?>";
 
     
     upbtn.addEventListener('click', () => {
-      const visivel = uploadimg.style.display = 'block';
+      console.log("Clicou")
+      const visivel = uploadimg.style.display = 'none';
       uploadimg.style.display = visivel ? 'none' : 'block';
     })
     // Mostra/esconde a galeria
@@ -636,7 +560,7 @@ let slides = [];
 let teste = [];
 let index = 0;
 let timer = null;
-let intervalSec = parseInt(intervalRange.value, 10) * 1000;
+let intervalSec = parseInt(intervalRange.value, 10) *60* 1000;
 
 //atualizar iframe
 function atiframe(){
@@ -897,6 +821,27 @@ fetch("slides.json?t=" + Date.now())
     }
   })
   .catch(err => console.error("Erro ao carregar JSON:", err));
+  const imgrots = document.querySelectorAll('.slide-item');
+  const cont = document.getElementsByClassName('.slide-item').length;
+  const btnchange = document.getElementById('crot');
+
+
+  let rotated = false;
+
+  btnchange.onclick = () => {
+    rotated = !rotated;
+    stage.querySelectorAll('.slide-item').forEach((n, idx) => {
+      n.style.transform = rotated ? 'rotate(0deg)' : 'rotate(-90deg)';
+    });
+    // console.log(cont);
+    // rotated = !rotated;
+
+    // imgrots.forEach(imgrot => {
+    //   imgrot.style.transform = rotated
+    //     ? 'rotate(90deg)'
+    //     : 'rotate(0deg)';
+    // });
+  };
 </script>
 </body>
 </html>

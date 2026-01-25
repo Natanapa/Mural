@@ -1,16 +1,6 @@
 {
     "slides": [
         {
-            "url": "JPG",
-            "title": "Painel Gif",
-            "text": "Imagem JPG, SVG, PNG.",
-            "urlimg": "\/Assets\/imgs\/PainelGif.gif",
-            "vaga": null,
-            "requisitos": null,
-            "salario": null,
-            "beneficios": null
-        },
-        {
             "url": "muralvaga\/index.php",
             "title": null,
             "text": null,
@@ -35,6 +25,50 @@
             "requisitos": null,
             "salario": null,
             "beneficios": null
+        },
+        {
+            "url": "JPG",
+            "title": "teste2",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "assets\/imgs\/12.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "JPG",
+            "title": "Teste3",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "assets\/imgs\/11.svg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "JPG",
+            "title": "Qwer",
+            "text": "Imagem JPG, SVG, PNG.",
+            "urlimg": "assets\/imgs\/18.jpg",
+            "vaga": null,
+            "requisitos": null,
+            "salario": null,
+            "beneficios": null
+        },
+        {
+            "url": "muralvaga\/index.php",
+            "title": null,
+            "text": null,
+            "urlimg": null,
+            "vaga": "Teste",
+            "requisitos": [
+                "testes"
+            ],
+            "salario": "testes",
+            "beneficios": [
+                "testes"
+            ]
         }
     ]
 }
