@@ -424,6 +424,6 @@ function clearAll(){
 function togglePlay(){ timer ? pause() : play(); }
 function changeInterval(v){
   intervalSec = parseInt(v,10) * 1000;
-  intervalLabel.textContent = v + 's';
+  intervalLabel.textContent = v + 'm';
   if(timer){ pause(); play(); }
 }
