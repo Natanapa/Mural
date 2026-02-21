@@ -1,5 +1,5 @@
 <?php
-$dir = 'C:\\xampp\\htdocs\\mural\\Assets\\imgs\\';
+$dir = 'C:\\xampp\\htdocs\\mural-main\\Assets\\imgs\\';
 if (!file_exists($dir)) mkdir($dir, 0777, true);
 
 if(!isset($_FILES['files'])){

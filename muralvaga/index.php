@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
     <meta name="keywords" content="Your site's keywords should be here">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" href="style.css"> 
+     
     <!--[if IE 6]>
 	<style type="text/css">
 		* html .group {
@@ -115,13 +115,14 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
 		*:first-child+html .group {
 			min-height: 1px;
 		}
-	</style>
+	</style>ujo  
   <![endif]--> 
     <!--[if lt IE 9]> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script> 
   <![endif]--> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,math,symbols,vietnamese">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="prancheta-1">
@@ -218,6 +219,7 @@ if ($_SERVER['REQUEST_METHOD']=== 'POST'){
       })
       .then(response => response.json()) // converte o retorno PHP em JSON
       .then(data =>{
+        console.log(data.requisitos);
         atualizarSlide(data.vaga, data.requisitos, data.salario, data.beneficios );
         // exemplo: controlar a troca de slides
         setInterval(() => {
